@@ -1,7 +1,7 @@
 # Packages Used
 
 ========================================================================
-# Package 1 - Tailwind CSS
+## Package 1 - Tailwind CSS
 npm install tailwindcss @tailwindcss/vite
 
 => Add => vite.config.ts
