@@ -17,5 +17,5 @@ export default defineConfig({
 Add an @import to your CSS file that imports Tailwind CSS.
 
 => Add => CSS
-@import "tailwindcss";
+&#64;import "tailwindcss";
 ========================================================================
