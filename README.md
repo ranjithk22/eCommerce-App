@@ -18,4 +18,5 @@ Add an @import to your CSS file that imports Tailwind CSS.
 
 => Add => CSS
 &#64;import "tailwindcss";
+
 ========================================================================
