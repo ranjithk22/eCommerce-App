@@ -1,6 +1,6 @@
 # Packages Used
 
-**********************************************************************
+========================================================================
 # Package 1 - Tailwind CSS
 npm install tailwindcss @tailwindcss/vite
 
@@ -17,5 +17,5 @@ export default defineConfig({
 Add an @import to your CSS file that imports Tailwind CSS.
 
 ## => Add => CSS
-@import "tailwindcss";
-**********************************************************************
+. @import "tailwindcss";
+========================================================================
