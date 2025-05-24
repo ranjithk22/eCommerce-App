@@ -4,7 +4,7 @@
 # Package 1 - Tailwind CSS
 npm install tailwindcss @tailwindcss/vite
 
-## => Add => vite.config.ts
+=> Add => vite.config.ts
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
@@ -13,9 +13,9 @@ export default defineConfig({
   ],
 })
 
-## => Add =>  Import Tailwind CSS
+=> Add =>  Import Tailwind CSS
 Add an @import to your CSS file that imports Tailwind CSS.
 
-## => Add => CSS
-. @import "tailwindcss";
+=> Add => CSS
+@import "tailwindcss";
 ========================================================================
