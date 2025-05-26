@@ -1,25 +1,25 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/Store'
-import { updateUserInStoreAfterAuth, updateUserInStoreafterLogout } from '../store/UserSlice'
+import { updateUserInStoreafterLogout } from '../store/UserSlice'
+import { useEffect, useState } from 'react'
+import { updateUserInStoreAfterAuth } from '../store/UserSlice'
 import axios from 'axios'
 
-const Navbar = () => {
+const Navbar = ({ token }: { token: string }) => {
     const { email } = useSelector((state: RootState) => state.userData.loggedInUser)
-    const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'));
     const dispatch = useDispatch<AppDispatch>()
 
-
+    console.log('Navbar Page: ', token)
     useEffect(() => {
-        if (accessToken) {
-
-            const authAcesss = async () => {
+        if (token.length > 0) {
+            (async () => {
                 try {
+                    console.log('Auth for user: ', token)
                     const res = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', {
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${accessToken}`
+                            'Authorization': `Bearer ${token}`
                         }
                     })
                     const data = res.data
@@ -28,11 +28,9 @@ const Navbar = () => {
                 } catch (error) {
                     console.log(error)
                 }
-            }
-            authAcesss()
+            })()
         }
-
-    }, [accessToken])
+    }, [token])
 
     const setUserInLocalStorage = (user: { email: string }) => {
         localStorage.setItem(

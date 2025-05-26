@@ -35,11 +35,12 @@ const Login = () => {
                 }
             })
             localStorage.setItem('access_token', res.data.access_token);
+            // localStorage.setItem('UserInStorage', JSON.stringify({ email: user.email }));
             navigate('/')
-        } catch (error) {
-            alert('Given credentials are there')
-            // setErrorMessage(error as string)
-            console.log(error)
+            window.location.reload()
+        } catch (error: any) {
+            setErrorMessage('Problem in Login, try again' as string)
+            console.log(error.response?.data)
         }
     }
 
@@ -58,7 +59,7 @@ const Login = () => {
                             <input name="password" type="password" value={user.password} placeholder="Enter Password" onChange={onValueChange} />
                         </div>
                         <button type="submit" className="btn max-w-[200px] mx-auto">Sign In</button>
-                        <p className='text-sm text-red-400'>{errorMessage}</p>
+                        <p className='text-sm text-red-400 mt-2'>{errorMessage}</p>
                     </form>
                 </div>
             </div>

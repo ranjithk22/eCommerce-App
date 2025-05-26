@@ -11,16 +11,27 @@ import LoadingIcon from './components/LoadingIcon';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false)
+  const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('access_token'))
+  const [token, setToken] = useState<string>('')
+
   const { email } = useSelector((state: RootState) => state.userData.loggedInUser)
   console.log(email)
 
   useEffect(() => {
     setLoading(true)
   }, [email])
+
+  useEffect(() => {
+    if (typeof (accessToken) === 'string') {
+      setToken(accessToken)
+    }
+  }, [accessToken])
+  console.log('Homepage: ', token)
+
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar token={token} />
         {loading ? (
           <div className="container">
             <Routes>
@@ -34,7 +45,6 @@ function App() {
             <LoadingIcon />
           </div>
         )}
-
       </BrowserRouter>
     </>
   )
