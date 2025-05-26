@@ -1,7 +1,13 @@
 # Packages Used
 
+
 ========================================================================
-## Package 1 - Tailwind CSS
+
+## Package 1 - Redux
+npm install @reduxjs/toolkit react-redux
+
+========================================================================
+## Package 2 - Tailwind CSS
 npm install tailwindcss @tailwindcss/vite
 
 => Add => vite.config.ts
@@ -19,4 +25,27 @@ Add an @import to your CSS file that imports Tailwind CSS.
 => Add => CSS
 &#64;import "tailwindcss";
 
+
 ========================================================================
+
+## Package 3 - Axios
+npm install axios
+
+========================================================================
+
+## Package 4 - React Router Dom
+npm install react-router-dom
+
+========================================================================
+
+
+## JWT used from 
+
+https://fakeapi.platzi.com/en/rest/auth-jwt/
+{
+  "email": "john@mail.com",
+  "password": "changeme"
+}
+
+========================================================================
+

@@ -8,11 +8,17 @@
 }
 
 @layer utilities {
+  .nav ul{
+    @apply flex
+  }
+  .nav li{
+    @apply pr-2
+  }
   .heading {
     @apply text-3xl font-bold text-gray-800 dark:text-gray-300;
   }
   .container {
-    @apply max-w-[1000px];
+    @apply max-w-[1000px] mx-auto;
   }
   .btn {
     @apply bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer hover:bg-blue-700 transition duration-200 ease-in-out;
