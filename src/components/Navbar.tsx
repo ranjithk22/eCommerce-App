@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/Store'
 import { updateUserInStoreafterLogout } from '../store/UserSlice'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { updateUserInStoreAfterAuth } from '../store/UserSlice'
 import axios from 'axios'
 
@@ -10,12 +10,10 @@ const Navbar = ({ token }: { token: string }) => {
     const { email } = useSelector((state: RootState) => state.userData.loggedInUser)
     const dispatch = useDispatch<AppDispatch>()
 
-    console.log('Navbar Page: ', token)
     useEffect(() => {
         if (token.length > 0) {
             (async () => {
                 try {
-                    console.log('Auth for user: ', token)
                     const res = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', {
                         headers: {
                             'Content-Type': 'application/json',
@@ -37,7 +35,6 @@ const Navbar = ({ token }: { token: string }) => {
             "UserInStorage",
             JSON.stringify({
                 email: user.email,
-                // uid: user.uid,
             })
         );
     };

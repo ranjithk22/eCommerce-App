@@ -11,11 +11,10 @@ import LoadingIcon from './components/LoadingIcon';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false)
-  const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('access_token'))
+  const accessToken = localStorage.getItem('access_token')
   const [token, setToken] = useState<string>('')
 
   const { email } = useSelector((state: RootState) => state.userData.loggedInUser)
-  console.log(email)
 
   useEffect(() => {
     setLoading(true)
@@ -26,7 +25,6 @@ function App() {
       setToken(accessToken)
     }
   }, [accessToken])
-  console.log('Homepage: ', token)
 
   return (
     <>

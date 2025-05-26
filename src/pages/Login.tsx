@@ -35,7 +35,6 @@ const Login = () => {
                 }
             })
             localStorage.setItem('access_token', res.data.access_token);
-            // localStorage.setItem('UserInStorage', JSON.stringify({ email: user.email }));
             navigate('/')
             window.location.reload()
         } catch (error: any) {
