@@ -6,13 +6,14 @@ interface UserTypes {
     email: string,
     password: string
 }
-const Login = () => {
+const Signup = () => {
     const [currentUser, setCurrentUser] = useState<UserTypes>({
         email: '',
         password: ''
     })
     const [errorMessage, setErrorMessage] = useState<string>('')
     const navigate = useNavigate()
+
     const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
@@ -25,20 +26,11 @@ const Login = () => {
     const onSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { user, session, error } = await supabase.auth.signUp({
                 email: currentUser.email,
                 password: currentUser.email,
             })
-            if (data !== null) {
-                localStorage.setItem('AccessToken', data?.session?.access_token as string);
-                localStorage.setItem('IdAtLocalStorage', data?.user?.id as string);
-                localStorage.setItem('EmailAtLocalStorage', data?.user?.email as string);
-                navigate('/')
-                window.location.reload()
-            }
-            if (error) {
-                setErrorMessage(error.message)
-            }
+            console.log(user.data, session, error)
         } catch (error: any) {
             console.log(error)
         }
@@ -48,7 +40,7 @@ const Login = () => {
         <div className='min-h-[calc(100vh-100px)] flex items-center'>
             <div className=" w-[400px] mx-auto border-2 border-gray-300 my-3 rounded-2xl justify-center">
                 <div className='p-3 w-[100%] text-center'>
-                    <h1 className="text-2xl mb-3 text-center ">Login Page</h1>
+                    <h1 className="text-2xl mb-3 text-center ">Signup Page</h1>
                     <form method='POST' onSubmit={onSignIn}>
                         <div className="flex justify-between mb-2">
                             <label htmlFor="">Email</label>
@@ -58,9 +50,10 @@ const Login = () => {
                             <label htmlFor="">Password</label>
                             <input name="password" type="password" value={currentUser.password} placeholder="Enter Password" onChange={onValueChange} />
                         </div>
-                        <button type="submit" className="btn max-w-[200px] mx-auto">Sign In</button>
-                        <p className='text-sm text-red-400 mt-2'>{errorMessage && (<>{errorMessage}, Try again</>)}</p>
-                        <Link to='/signup' className='text-blue-400 font-bold text-sm'>Create new Account</Link>
+                        <button type="submit" className="btn max-w-[200px] mx-auto">Create an Account</button>
+                        <p className='text-sm text-red-400 mt-2'>{errorMessage}</p>
+
+                        <Link to='/login' className='text-blue-400 font-bold text-sm'>Alerady created account? login here</Link>
                     </form>
                 </div>
             </div>
@@ -68,4 +61,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Signup

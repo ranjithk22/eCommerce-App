@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface UserTypes {
   email: string;
+  userId: string;
 }
 
 const initialState = {
-  loggedInUser: {
+  user: {
     email: "",
+    userId: "",
   } as UserTypes,
 };
 
@@ -15,14 +17,10 @@ export const UserSlice = createSlice({
   initialState,
   reducers: {
     updateUserInStoreAfterAuth: (state, action: { payload: UserTypes }) => {
-      state.loggedInUser = {
-        email: action.payload.email,
-      };
+      state.user = action.payload;
     },
-    updateUserInStoreafterLogout: (state, action: { payload: UserTypes }) => {
-      state.loggedInUser = {
-        email: action.payload.email,
-      };
+    updateUserInStoreafterLogout: (state) => {
+      state.user = { ...state.user, email: "", userId: "" };
     },
   },
 });

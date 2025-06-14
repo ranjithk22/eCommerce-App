@@ -1,51 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/Store'
 import { updateUserInStoreafterLogout } from '../store/UserSlice'
-import { useEffect } from 'react'
-import { updateUserInStoreAfterAuth } from '../store/UserSlice'
-import axios from 'axios'
 
-const Navbar = ({ token }: { token: string }) => {
-    const { email } = useSelector((state: RootState) => state.userData.loggedInUser)
+const Navbar = () => {
+    const { email } = useSelector((state: RootState) => state.userData.user)
     const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        if (token.length > 0) {
-            (async () => {
-                try {
-                    const res = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        }
-                    })
-                    const data = res.data
-                    dispatch(updateUserInStoreAfterAuth({ email: data.email }))
-                    setUserInLocalStorage({ email: data.email })
-                } catch (error) {
-                    console.log(error)
-                }
-            })()
-        }
-    }, [token])
 
-    const setUserInLocalStorage = (user: { email: string }) => {
-        localStorage.setItem(
-            "UserInStorage",
-            JSON.stringify({
-                email: user.email,
-            })
-        );
-    };
 
     const onSignOut = async () => {
         localStorage.removeItem('access_token')
-        localStorage.removeItem("UserInStorage");
-        dispatch(updateUserInStoreafterLogout({ 'email': '' }))
+        localStorage.removeItem("EmailAtLocalStorage");
+        localStorage.removeItem("IdAtLocalStorage");
+        dispatch(updateUserInStoreafterLogout())
+        navigate('/login')
+        window.location.reload()
     }
     return (
-        <header>
+        <div>
             <nav className="nav container flex justify-between">
                 <ul>
                     <li><Link to="/">Home</Link></li>
@@ -62,7 +36,7 @@ const Navbar = ({ token }: { token: string }) => {
                     ) : <li> <Link to="/login">Login</Link></li>}
                 </ul>
             </nav>
-        </header>
+        </div>
     )
 }
 
