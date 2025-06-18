@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar"
 import { useSelector } from "react-redux"
 import type { RootState } from "../store/Store"
 import supabase from "../config/supabase"
+import { Link } from "react-router-dom"
 
 interface ProfileTypes {
     customerId: string,
@@ -10,7 +11,10 @@ interface ProfileTypes {
     profilePic: string,
     designation: string,
 }
-const Home = () => {
+interface currentUserTypes {
+    currentUser: string
+}
+const Home = ({ currentUser }: currentUserTypes) => {
     const [profile, setProfile] = useState<ProfileTypes>({
         customerId: '',
         customerName: '',
@@ -19,24 +23,26 @@ const Home = () => {
     })
     const { userId } = useSelector((state: RootState) => state.userData.user)
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const { data, error } = await supabase.from('profiles').select('*').eq('customer_id', userId)
-                if (data !== null) {
-                    setProfile((prev: ProfileTypes) => ({ ...prev, customerName: data[0].name, profilePic: data[0].profile_pic, designation: data[0].designation, }))
-                }
-                if (error) {
-                    console.log(error);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        })()
-    }, [userId])
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             const { data, error } = await supabase.from('profiles').select('*').eq('customer_id', userId)
+    //             if (data !== null) {
+    //                 setProfile((prev: ProfileTypes) => ({ ...prev, customerName: data[0].name, profilePic: data[0].profile_pic, designation: data[0].designation, }))
+    //             }
+    //             if (error) {
+    //                 console.log(error);
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     })()
+    // }, [userId])
+    console.log(currentUser)
     return (
         <div>
             <Navbar />
+            {currentUser === 'admin@test.com' && <Link to="/admin">Admin Page</Link>}
             <div className="container pt-5">
                 <h3>Profile</h3>
                 {profile.customerName && (

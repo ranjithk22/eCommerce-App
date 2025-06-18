@@ -1,15 +1,16 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store/Store'
-import NotFound from './pages/NotFound';
-import { useEffect, useState } from 'react';
+import { updateUserInStoreAfterAuth } from './store/UserSlice';
+import PrivateRoutes from './components/PrivateRoutes';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Signup from './pages/Signup';
-import PrivateRoutes from './components/PrivateRoutes';
-import { updateUserInStoreAfterAuth } from './store/UserSlice';
+import NotFound from './pages/NotFound';
+import Admin from './pages/Admin';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<string>('')
@@ -27,6 +28,7 @@ function App() {
   }, [IdAtLocalStorage, EmailAtLocalStorage])
 
 
+
   return (
     <BrowserRouter>
       <Routes>
@@ -35,7 +37,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
         </Route>
         <Route element={<ProtectedRoutes currentUser={currentUser} />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home currentUser={currentUser} />} />
+          {currentUser === 'admin@test.com' && <Route path="/admin" element={<Admin />} />}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

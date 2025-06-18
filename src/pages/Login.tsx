@@ -27,8 +27,9 @@ const Login = () => {
         try {
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: currentUser.email,
-                password: currentUser.email,
+                password: currentUser.password,
             })
+            console.log(data)
             if (data !== null) {
                 localStorage.setItem('AccessToken', data?.session?.access_token as string);
                 localStorage.setItem('IdAtLocalStorage', data?.user?.id as string);
