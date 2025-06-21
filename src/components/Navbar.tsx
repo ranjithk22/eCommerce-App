@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/Store'
-import { updateUserInStoreafterLogout } from '../store/UserSlice'
+import { updateUserAfterLogout } from '../store/UserSlice'
 
 const Navbar = () => {
     const { email } = useSelector((state: RootState) => state.userData.user)
@@ -14,12 +14,12 @@ const Navbar = () => {
         localStorage.removeItem('access_token')
         localStorage.removeItem("EmailAtLocalStorage");
         localStorage.removeItem("IdAtLocalStorage");
-        dispatch(updateUserInStoreafterLogout())
+        dispatch(updateUserAfterLogout())
         navigate('/login')
         window.location.reload()
     }
     return (
-        <div>
+        <div className='bg-blue-200 py-2'>
             <nav className="nav container flex justify-between">
                 <ul>
                     <li><Link to="/">Home</Link></li>
@@ -27,6 +27,7 @@ const Navbar = () => {
                     <li><Link to="/contact">Contact</Link></li>
                 </ul>
                 <ul className='flex items-center'>
+                    {email === 'admin@test.com' && <Link className='btn-sm mr-2' to="/admin">Admin Page</Link>}
                     {email.length > 0 ? (
                         <>
                             <li>HI {email}</li>
@@ -34,6 +35,7 @@ const Navbar = () => {
                         </>
 
                     ) : <li> <Link to="/login">Login</Link></li>}
+
                 </ul>
             </nav>
         </div>

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store/Store'
-import { updateUserInStoreAfterAuth } from './store/UserSlice';
+import { updateUserAfterAuth } from './store/UserSlice';
 import PrivateRoutes from './components/PrivateRoutes';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Signup from './pages/Signup';
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (IdAtLocalStorage !== null && EmailAtLocalStorage !== null) {
       setCurrentUser(EmailAtLocalStorage)
-      dispatch(updateUserInStoreAfterAuth({ 'userId': IdAtLocalStorage, 'email': EmailAtLocalStorage }))
+      dispatch(updateUserAfterAuth({ 'userId': IdAtLocalStorage, 'email': EmailAtLocalStorage }))
     }
   }, [IdAtLocalStorage, EmailAtLocalStorage])
 

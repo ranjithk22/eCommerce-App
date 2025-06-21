@@ -42,7 +42,6 @@ const Home = ({ currentUser }: currentUserTypes) => {
     return (
         <div>
             <Navbar />
-            {currentUser === 'admin@test.com' && <Link to="/admin">Admin Page</Link>}
             <div className="container pt-5">
                 <h3>Profile</h3>
                 {profile.customerName && (

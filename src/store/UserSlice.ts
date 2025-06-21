@@ -16,16 +16,15 @@ export const UserSlice = createSlice({
   name: "UserData",
   initialState,
   reducers: {
-    updateUserInStoreAfterAuth: (state, action: { payload: UserTypes }) => {
+    updateUserAfterAuth: (state, action: { payload: UserTypes }) => {
       state.user = action.payload;
     },
-    updateUserInStoreafterLogout: (state) => {
+    updateUserAfterLogout: (state) => {
       state.user = { ...state.user, email: "", userId: "" };
     },
   },
 });
 
-export const { updateUserInStoreAfterAuth, updateUserInStoreafterLogout } =
-  UserSlice.actions;
+export const { updateUserAfterAuth, updateUserAfterLogout } = UserSlice.actions;
 
 export default UserSlice.reducer;
