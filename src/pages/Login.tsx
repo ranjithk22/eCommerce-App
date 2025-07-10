@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import supabase from '../config/supabase'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../store/Store'
+import { updateUserAfterAuth } from '../store/UserSlice'
 
 interface UserTypes {
     email: string,
@@ -13,6 +16,8 @@ const Login = () => {
     })
     const [errorMessage, setErrorMessage] = useState<string>('')
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
+
     const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
@@ -34,8 +39,8 @@ const Login = () => {
                 localStorage.setItem('AccessToken', data?.session?.access_token as string);
                 localStorage.setItem('IdAtLocalStorage', data?.user?.id as string);
                 localStorage.setItem('EmailAtLocalStorage', data?.user?.email as string);
+                dispatch(updateUserAfterAuth({ 'userId': data?.user?.id as string, 'email': currentUser.email }))
                 navigate('/')
-                window.location.reload()
             }
             if (error) {
                 setErrorMessage(error.message)

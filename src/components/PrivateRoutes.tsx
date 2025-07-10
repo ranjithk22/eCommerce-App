@@ -5,7 +5,6 @@ interface PrivateRoutesProps {
 }
 
 const PrivateRoutes: React.FC<PrivateRoutesProps> = ({ currentUser }) => {
-
     return !currentUser ? <Outlet /> : <Navigate to="/" replace />
 }
 

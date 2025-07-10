@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Navbar from "../components/Navbar"
 import { useSelector } from "react-redux"
 import type { RootState } from "../store/Store"
-import supabase from "../config/supabase"
-import { Link } from "react-router-dom"
+import Products from "./Products"
 
 interface ProfileTypes {
     customerId: string,
@@ -38,12 +37,11 @@ const Home = ({ currentUser }: currentUserTypes) => {
     //         }
     //     })()
     // }, [userId])
-    console.log(currentUser)
     return (
         <div>
             <Navbar />
             <div className="container pt-5">
-                <h3>Profile</h3>
+                <Products />
                 {profile.customerName && (
                     <>
                         <p>{profile.customerName}</p>
